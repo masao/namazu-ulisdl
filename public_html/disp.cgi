@@ -1,4 +1,5 @@
 #!/usr/local/bin/perl -wT
+# $Id$
 
 ## ULIS-DL のメタデータを表示するための CGI スクリプト。
 
@@ -49,8 +50,6 @@ EOF
 
 # 出力する HTML の最後の部分
 my $HTML_FOOT = <<EOF;
-<hr>
-<a href="javascript:history.back()">戻る</a>
 </body></html>
 EOF
 
@@ -87,7 +86,7 @@ sub main {
 }
 
 # HTML風に変換
-# （元のSGMLがきちんとDTDに沿っていないのを考慮すべし）
+# （元のSGMLがきちんとDTDに沿っていないのを考慮する）
 sub escape_html($) {
     my ($str) = @_;
 
