@@ -1,0 +1,21 @@
+<table BORDER=2>${namazu::counter}. 
+metadata entry of ID ${metaid} (score: ${namazu::score})<br>
+<tr><td NOWRAP BGCOLOR="#ffccff" align="right">Title:</td> <td ALIGN="left">${title}</td></tr>
+<tr><td NOWRAP BGCOLOR="#ffff99" align="right">Creator:</td> <td ALIGN="left">${creator}</td></tr>
+<tr><td NOWRAP BGCOLOR="#ccffff" align="right">Subject:</td> <td ALIGN="left">${subject}</td></tr>
+<tr><td NOWRAP BGCOLOR="#FFE4B5" align="right">Description:</td> <td ALIGN="left">${description}</td></tr>
+<tr><td NOWRAP BGCOLOR="#ccff99" align="right">Publisher:</td> <td ALIGN="left">${contributor}</td></tr>
+<tr><td NOWRAP BGCOLOR="#99cc99" align="right">Contributor:</td> <td ALIGN="left">${contributor}</td></tr>
+<tr><td NOWRAP BGCOLOR="#d5d5DC" align="right">Date:</td> <td ALIGN="left">${date}</td></tr>
+<tr><td NOWRAP BGCOLOR="#dcF5DC" align="right">Type:</td> <td ALIGN="left">${type}</td></tr>
+<tr><td NOWRAP BGCOLOR="#dcffcc" align="right">Format:</td> <td ALIGN="left">${format}</td></tr>
+<tr><td NOWRAP BGCOLOR="#ccccff" align="right">Identifier:</td> <td ALIGN="left">${identifier}</td></tr>
+<tr><td NOWRAP BGCOLOR="#ccffcc" align="right">Source:</td> <td ALIGN="left">${source}</td></tr>
+<tr><td NOWRAP BGCOLOR="#ffe4cc" align="right">Language:</td> <td ALIGN="left">${language}</td></tr>
+<tr><td NOWRAP BGCOLOR="#beccbe" align="right">Relation:</td> <td ALIGN="left">${relation}</td></tr>
+<!-- <tr><td NOWRAP BGCOLOR="#bebecc" align="right">Coverage:</td> <td ALIGN="left">${coverage}</td></tr> -->
+<tr><td NOWRAP BGCOLOR="#87CEEB" align="right">Rights:</td> <td ALIGN="left">${rights}</td></tr>
+<tr><td NOWRAP BGCOLOR="#ffff0e" align="right">Country:</td> <td ALIGN="left">${country}</td></tr>
+<tr><td NOWRAP BGCOLOR="#ebCE87" align="right">CharCode:</td> <td ALIGN="left">${rights}</td></tr>
+</table>
+<br>

@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<!-- LINK-REV-MADE -->
+<link rev=made href="mailto:webmaster@avalon.ulis.ac.jp">
+<!-- LINK-REV-MADE -->
+<title>図書館情報大学・図書館情報学関係メタデータ検索システム</title>
+<style type="text/css">
+/* ULIS-DL local style */
+  body { background-color: #e8e8e8; }
+  h1 { text-align: center; }
+
+/* Namazu default style*/
+  strong.keyword { color: Red; }
+  p.example      { text-indent: 1em; 
+                   color: Navy;
+		   font-weight: bold;
+                   font-family: monospace; }
+  code           { color: Navy;
+                   font-family: monospace; }
+  code.example   { color: Navy;
+		   font-weight: bold;
+                   font-family: monospace; }
+  code.operator  { color: Navy;
+                   font-family: monospace; 
+		   font-weight: bold; }
+</style>
+</head>
+<body>
+<h1>図書館情報大学・図書館情報学関係メタデータ検索システム</h1>
+<p>
+現在、<!-- FILE --> 34,133 <!-- FILE --> の文書がインデックス化され、
+<!-- KEY --> 140,347 <!-- KEY --> 個のキーワードが登録されています。
+</p>
+<p>
+<strong>インデックスの最終更新日: <!-- DATE --> 2002-05-07 <!-- DATE --></strong>
+</p>
+<hr>
+<form method="get" action="namazu.cgi">
+<p>
+調べたい語を検索式に入力してください。
+</p>
+<p>
+<strong>検索式:</strong> 
+<input type="text" name="query" size="40">
+<input type="submit" value="Search!">
+<a href="help.html">[検索方法]</a>
+</p>
+<p>
+<strong>表示件数:</strong>
+<select name="max">
+<option value="10">10
+<option selected value="20">20
+<option value="30">30
+<option value="50">50
+<option value="100">100
+</select>
+<strong>表示形式:</strong>
+<select name="result">
+<option selected value="normal">標準
+<option value="short">簡潔
+</select>
+<strong>ソート:</strong>
+<select name="sort">
+<option selected value="score">スコア
+<option value="field:subject:ascending">タイトル (昇順)
+<option value="field:subject:descending">タイトル (降順)
+<option value="field:from:ascending">作成者 (昇順)
+<option value="field:from:descending">作成者 (降順)
+<option value="field:identifier:ascending">識別子 (昇順)
+<option value="field:identifier:descending">識別子 (降順)
+</select>
+</p>
+</form>
+<hr>
+<p>
+図書館情報学を中心としたインターネット上のリソース、雑誌記事のメタデータを検索することができます。
+</p>
+
+<!--
+<h2>メタデータの説明</h2>
+<p>
+工事中。。。
+</p>
+-->
+<hr>
+<p>
+この検索システムは
+<strong><a href="http://www.namazu.org/">Namazu</a> <!-- VERSION --> v2.0.10 <!-- VERSION --></strong>
+によって構築されています。
+</p>
+<address>
+Copyright &copy; 図書館情報大学附属図書館 <a href="mailto:lib-www@ulis.ac.jp">lib-www@ulis.ac.jp</a>
+</address>
+</body>
+</html>

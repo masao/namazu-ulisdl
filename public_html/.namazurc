@@ -1,0 +1,7 @@
+# Lang ja_JP.EUC
+Replace	/opt/DLsystem/metadata/ucmetadata/.*/(.*).sgm http://avalon.ulis.ac.jp/DLsystem/mb/3.cgi?\1
+MaxHit	500000
+MaxMatch	100000
+Lang	ja
+
+ContentType	"text/html; charset=EUC-JP"

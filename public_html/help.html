@@ -1,0 +1,263 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<!-- LINK-REV-MADE -->
+<link rev=made href="mailto:webmaster@avalon.ulis.ac.jp">
+<!-- LINK-REV-MADE -->
+<title>図書館情報大学・図書館情報学関係メタデータ検索システム</title>
+<style type="text/css">
+/* ULIS-DL local style */
+  body { background-color: #e8e8e8; }
+  h1 { text-align: center; }
+
+/* Namazu default style*/
+  strong.keyword { color: Red; }
+  p.example      { text-indent: 1em; 
+                   color: Navy;
+		   font-weight: bold;
+                   font-family: monospace; }
+  code           { color: Navy;
+                   font-family: monospace; }
+  code.example   { color: Navy;
+		   font-weight: bold;
+                   font-family: monospace; }
+  code.operator  { color: Navy;
+                   font-family: monospace; 
+		   font-weight: bold; }
+</style>
+</head>
+<body>
+<h1>図書館情報大学・図書館情報学関係メタデータ検索システム</h1>
+<p>
+現在、<!-- FILE --> 34,133 <!-- FILE --> の文書がインデックス化され、
+<!-- KEY --> 140,347 <!-- KEY --> 個のキーワードが登録されています。
+</p>
+<p>
+<strong>インデックスの最終更新日: <!-- DATE --> 2002-05-07 <!-- DATE --></strong>
+</p>
+<hr>
+<form method="get" action="namazu.cgi">
+<p>
+調べたい語を検索式に入力してください。
+</p>
+<p>
+<strong>検索式:</strong> 
+<input type="text" name="query" size="40">
+<input type="submit" value="Search!">
+<a href="help.html">[検索方法]</a>
+</p>
+<p>
+<strong>表示件数:</strong>
+<select name="max">
+<option value="10">10
+<option selected value="20">20
+<option value="30">30
+<option value="50">50
+<option value="100">100
+</select>
+<strong>表示形式:</strong>
+<select name="result">
+<option selected value="normal">標準
+<option value="short">簡潔
+</select>
+<strong>ソート:</strong>
+<select name="sort">
+<option selected value="score">スコア
+<option value="field:subject:ascending">タイトル (昇順)
+<option value="field:subject:descending">タイトル (降順)
+<option value="field:from:ascending">作成者 (昇順)
+<option value="field:from:descending">作成者 (降順)
+<option value="field:identifier:ascending">識別子 (昇順)
+<option value="field:identifier:descending">識別子 (降順)
+</select>
+</p>
+</form>
+<hr>
+<h2><a name="query">検索式</a></h2>
+
+<h3><a name="query-term">単一単語検索</a></h3>
+<p>
+調べたい単語を一つ指定するだけのもっとも基本的な検索手法です。
+例: 
+</p>
+
+<p class="example">図書館</p>
+
+<h3><a name="query-and">AND検索</a></h3> 
+
+<p>
+ある単語とある単語の両方を含む文書を検索します。検索結果を絞
+り込むのに有効です。3つ以上の単語を指定することも可能です。
+単語と単語の間に <code class="operator">and</code> を挿みます。例:
+</p>
+
+<p class="example">図書館 and 北海道</p>
+
+<p>
+<code class="operator">and</code> は省略できます。単語を空白で区切って羅列す
+るとそれらの語すべてを含む文書をAND検索します。
+</p>
+
+<h3><a name="query-or">OR検索</a></h3>
+<p>
+ある単語とある単語のどちらかを含む文書を検索します。3つ以上
+の単語を指定することも可能です。単語と単語の間に 
+<code class="operator">or</code> を挿みます。例: 
+</p>
+
+<p class="example">
+電子図書館 or ディジタル図書館
+</p>
+
+<h3><a name="query-not">NOT検索</a></h3>
+<p>
+ある単語を含み、ある単語を含まない文書を検索します。3つ以上
+の単語を指定することも可能です。単語と単語の間に 
+<code class="operator">not</code> を挿みます。例: 
+</p>
+
+<p class="example">
+図書館 not OPAC
+</p>
+
+<h3><a name="query-grouping">グループ化</a></h3>
+<p>
+AND検索、OR検索、NOT検索を括弧でグループ化できます。括弧の両
+隣には空白を入れる必要があります。例:
+</p>
+
+<p class="example">
+( 公共図書館 or 大学図書館 ) and リファレンス not 利用者
+</p>
+
+<h3><a name="query-phrase">フレイズ検索</a></h3>
+<p>
+2語以上からなる複合語を検索します。 <code
+class="operator">"..."</code> と2重引用符で、あるいは <code
+class="operator">{...}</code> と中括弧で囲みます。Namazuのフ
+レイズ検索は精度が 100 % ではないため、ときどき誤ることがあ
+ります。例: </p>
+
+<p class="example">
+"library and information science"
+</p>
+
+
+<h3><a name="query-field">フィールド指定の検索</a></h3>
+<p>
+タイトル (<code>title</code>)、作成者 (<code>creator</code>)
+などといったフィールドを指定して検索する手法です。
+特に絞り込みを行なう際に効果を発揮します。例:
+</p>
+
+<ul>
+<li><code class="example">+title:図書館</code><br>
+(タイトルに <code>図書館</code>が含まれる文書)
+<li><code class="example">+title:"library and information science"</code><br>
+(タイトルに <code>library and information science</code>が含まれる文書)
+<li><code class="example">+creator:国会図書館</code><br>
+(作成者に <code>国会図書館</code> が含まれる文書)
+<li><code class="example">+identifier:雑誌</code><br>
+(識別子に <code>雑誌</code> が含まれる文書)
+</ul>
+
+<p>
+<code>+<em>フィールド名</em>:<i>検索式</i></code>
+の書式のフィールド名の部分には、
+<a href="http://purl.org/dc/">Dublin Core</a>に基づく以下が使えます。
+</p>
+<ul>
+  <li><code>title</code>
+  <li><code>creator</code>
+  <li><code>subject</code>
+  <li><code>description</code>
+  <li><code>publisher</code>
+  <li><code>date</code>
+  <li><code>type</code>
+  <li><code>identifier</code>
+  <li><code>language</code>
+  <li><code>contributor</code>
+  <li><code>format</code>
+  <li><code>source</code>
+  <li><code>relation</code>
+  <li><code>coverage</code>
+  <li><code>rights</code>
+  <li><code>metaid</code>
+  <li><code>charcode</code>
+  <li><code>country</code>
+</ul>
+
+<h3><a name="query-substring">部分一致検索</a></h3>
+<p>
+部分一致検索には前方一致、中間一致、後方一致の 3種類があります。
+</p>
+
+<dl> 
+<dt>前方一致検索
+<dd><code class="example">インター*</code>
+(<code>インター</code> から始まる単語を含む文書を検索)
+<dt>中間一致検索
+<dd><code class="example">*テキスト*</code>
+(<code>テキスト</code> を内包する単語を含む文書を検索)
+<dt>後方一致検索
+<dd><code class="example">*ネット</code>
+(<code>ネット</code> で終わる単語を含む文書を検索)
+</dl>
+
+
+<h3><a name="query-regex">正規表現検索</a></h3>
+
+<p>
+検索するキーワードを正規表現で指定します。正規表現は 
+<code class="operator">/.../</code> のようにスラッシュ記号で囲みます。正規表
+現のエンジンには<a
+href="http://www.ruby-lang.org/">Ruby</a>のコードを利用
+しています。正規表現の書式は<a
+href="http://www.perl.com/">Perl</a>とほぼ同じです。 例:
+</p>
+
+<p class="example">
+/ディ?ジタル(ライブラリ|図書館)/
+</p>
+
+<h3><a name="query-notes">特記事項</a></h3>
+
+<ul>
+<li>いずれの検索方法でもアルファベットの大文字・小文字の区別
+はしません。
+
+<li>日本語の複合語は形態素単位に分割し、それらを<a
+href="#query-phrase"> フレイズ検索</a>します。分割は不適切に
+行なわれることがあります。
+
+<li>JIS X 0208 (いわゆる全角文字) の英数字と記号の一部 
+(ASCIIと重複しているもの) は ASCII (いわゆる半角文字) として
+処理されます。
+
+<li>記号を含む語の検索ができます。例: <code>TCP/IP</code>。
+ただし、記号の処理は完全ではないので <code>TCP and IP</code> 
+のように分割して<a href="#query-and">AND検索</a>をかけた方が取りこ
+ぼしがありません (その代わり余計なファイルまでヒットしてしま
+う可能性があります)。
+
+<li>中間一致・後方一致、正規表現、フィールド指定の検索には少
+し時間がかかります。
+
+<li><code class="operator">and</code>, <code
+class="operator">or</code>, <code
+class="operator">not</code> を単語として検索したいときはそれ
+ぞれ、 <code class="operator">"..."</code> と2重引用符で、
+あるいは <code class="operator">{...}</code> と中括弧で囲みます。 
+</ul>
+<hr>
+<p>
+この検索システムは
+<strong><a href="http://www.namazu.org/">Namazu</a> <!-- VERSION --> v2.0.10 <!-- VERSION --></strong>
+によって構築されています。
+</p>
+<address>
+Copyright &copy; 図書館情報大学附属図書館 <a href="mailto:lib-www@ulis.ac.jp">lib-www@ulis.ac.jp</a>
+</address>
+</body>
+</html>

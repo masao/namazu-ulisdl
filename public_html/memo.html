@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+	"http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<!-- link rel="stylesheet" href="default.css" type="text/css" -->
+<link rev="made" href="mailto:masao@ulis.ac.jp">
+<title>ULIS-DLメタデータ検索システム By Namazu</title>
+</head>
+
+<body>
+<!-- hhmts start -->
+<div class="last-update">最終更新日: <strong>Mon Mar  4 15:03:11 2002</strong></div>
+<!-- hhmts end -->
+
+<p>
+このメモは、avalon.ulis.ac.jp 上で
+<a href="http://lib.ulis.ac.jp/">ULIS-DL</a>の
+メタデータ (ULIS CORE) 検索システムを
+<a href="http://www.namazu.org/">Namazu</a>で構築した際のメモです。
+</p>
+<hr>
+
+<h1>覚え書き</h1>
+
+<h2>目次</h2>
+<ul>
+  <li><a href="#installation">導入</a>
+  <li><a href="#at-first">手始めに</a>
+  <li><a href="#daily-use">運用</a>
+  <li><a href="#known-problems">既知の問題</a>
+</ul>
+
+<h2><a name="installation">導入</a></h2>
+<p>
+まず、Namazuを導入しました。
+インストールの手順などは以下の通り。
+</p>
+
+<pre>
+[Perlモジュールのインストール]
+% tar zxvf Text-ChaSen-1.0.3.tar.gz
+% cd Text-ChaSen-1.0.3
+% perl Makefile.PL LIB=/opt/namazu/lib/perl5 INSTALLMAN3DIR=/opt/namazu/man/man3
+% make
+% make install
+
+% tar zxvf Text-Kakasi-1.0.5.tar.gz
+% cd Text-Kakasi-1.0.5
+% perl Makefile.PL LIB=/opt/namazu/lib/perl5 INSTALLMAN3DIR=/opt/namazu/man/man3
+% make
+% make install
+
+% tar zxvf namazu-2.0.10.tar.gz
+% cd namazu-2.0.10/File-MMagic
+% perl Makefile.PL LIB=/opt/namazu/lib/perl5 INSTALLMAN3DIR=/opt/namazu/man/man3
+% make
+% make install
+
+[Namazu本体へのパッチ当てとインストール]
+% cd namazu-2.0.10
+% gzip -cd  ../<a href="src/namazu2-ulisdl-1.2.patch.gz" title="Namazu のソースコードに対する ULIS DL 用の修正部分です。">namazu2-ulisdl-1.2.patch.gz</a> | patch -p1
+% ./configure --prefix=/opt/namazu --with-pmdir=/opt/namazu/lib/perl5
+% make
+% make install
+</pre>
+
+<p>
+使用したソースファイル群は、<code><a href="./src/">/opt/namazu/src</a></code>以下に置いてあります。
+</p>
+
+<h2><a name="at-first">手始めに</a></h2>
+
+<p>
+まず、CGIの設置とIndexingを行ないます。
+</p>
+<p>
+CGIの設置は、インストールされている <code>/opt/namazu/libexec/namazu.cgi</code>
+へのシンボリックリンクを張ります。
+これにより、バージョンアップのたびにコピーする手間がなくなります。
+<pre>
+% cd /opt/apache-80/htdocs/UDL/
+% ln -s /opt/namazu/libexec/namazu.cgi namazu.cgi 
+</pre>
+<p>
+CGIの設定ファイルは<code><a href=".namazurc">/opt/apache-80/htdocs/UDL/.namazurc</a></code>です。
+</p>
+
+<p>
+次に、インデックスを作成します。
+これは、
+<code>/opt/namazu/bin/mknmz-wrapper.sh</code>
+を実行するだけです。
+（必要なオプションなどの指定はこの中で自動的に行なわれています。）
+ちなみに、<code>mknmz</code>コマンドの設定ファイルは<code>/opt/namazu/bin/mknmzrc</code>です。
+対象とするメタデータは、
+<code>/opt/DLsystem/metadata/</code>以下にある全ファイルです。
+</p>
+
+<h2><a name="daily-use">運用</a></h2>
+
+<p>
+Indexing については、
+毎日午前2時にcronで定時実行します。
+</p>
+
+<p>
+トップページおよびヘルプページの内容の更新は、
+以下に示すファイルを変更内容に応じてそれぞれ修正します。
+</p>
+<ul>
+  <li><code><a href="body.txt">/opt/apache-80/htdocs/UDL/body.txt</a></code>：
+      トップページの本文の部分。システムの説明など。
+</ul>
+<ul>
+  <li><code>/opt/namazu/var/index/NMZ.head.ja</code>：
+      HTMLの冒頭部分。タイトルや検索フォームが書かれている。
+  <li><code>/opt/namazu/var/index/NMZ.foot.ja</code>：
+      HTMLの末尾部分。責任表示などが書かれている。
+  <li><code>/opt/namazu/var/index/NMZ.body.ja</code>：
+      検索方法の説明が書かれている。
+</ul>
+<p>
+上記ファイルを変更した場合、
+<code>index.html</code>, <code>help.html</code>との同期をとるために、
+以下のように<code>make</code>コマンドを実行すること。
+</p>
+<pre>
+% cd /opt/apache-80/htdocs/UDL/
+% make
+</pre>
+
+<p>
+また、検索結果画面の表示方法を修正するには、
+上の<code>NMZ.{head,foot}.ja</code>に加えて、以下のファイルを修正する。
+</p>
+<ul>
+  <li><code>/opt/namazu/var/index/NMZ.result.normal.ja</code>：
+      検索結果HTMLの「標準」版。
+  <li><code>/opt/namazu/var/index/NMZ.result.short.ja</code>：
+      検索結果HTMLの「簡潔」版。
+</ul>
+      
+<h2><a name="known-problems">既知の問題</a></h2>
+
+<ol>
+  <li>検索結果の表示の際に、1024バイト以上あるフィールドが表示できない。
+      <p>
+      Namazu の仕様です。
+      1024バイト目までは表示され、以降の部分は表示されません。
+      </p>
+
+  <li>1024バイト以上あるフィールドの検索がうまくいかない。
+      <p>
+      Namazu の仕様です。
+      1024バイト目以前の部分の検索はヒットしません。
+      全文検索は可能です。
+      </p>
+
+  <li>メタデータ表示CGIで、196 件のデータが対象外になっている。（表示できない）
+      <p>
+      メタデータ表示CGIの仕様です。
+      （<a href="http://avalon.ulis.ac.jp/DLsystem/mb/">メタデータ・ブラウザ</a>の機能を利用しています。）
+      </p>
+
+  <li>通常の Namazu として動作しません。
+      <p>
+      ULIS-DL 用に Namazu にソースコードのレベルの修正を加えています。
+      特に、フィールド別名の抑制などの大きな変更を加えたために、
+      通常のNamazuの挙動とは異なる動作をします。
+      </p>
+</ol>
+
+<hr>
+<address>
+高久雅生 (Takaku Masao),
+<a href="mailto:masao@ulis.ac.jp">masao@ulis.ac.jp</a>
+</address>
+</body>
+</html>

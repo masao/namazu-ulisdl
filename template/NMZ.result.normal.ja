@@ -1,0 +1,3 @@
+<dt>${namazu::counter}. <strong><a href="${uri}">${title}</a></strong> (スコア: ${namazu::score})
+<dd><strong>作成者</strong>: <em>${creator}</em>
+<dd>${description}<br><br>
